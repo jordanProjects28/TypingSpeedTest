@@ -121,11 +121,13 @@ quoteInput.addEventListener("input", () => {
 });
 
 function updateTimer(){
-    if(time == 0){
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const remaining = Math.max(0, 600 - elapsed);
+    document.getElementById("timer").innerText = remaining + "s";
+
+    if(remaining == 0){
         displayResult();
-    }else{
-        document.getElementById("timer").innerText = --time + "s";
-    };    
+    };       
 };
 
 const timeReduce = () => {
@@ -172,7 +174,6 @@ const startTest = () => {
     totalMistakes = 0;
     charactersWritten = 0;
     quote = "";
-    time = 600;
     clearInterval(timer);
     
     document.getElementById("start").style.display = "none";
