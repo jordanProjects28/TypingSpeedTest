@@ -70,7 +70,7 @@ window.onload = () => {
     document.getElementById("start").style.display = "block"; 
     document.getElementById("stop").style.display = "none";
     quoteInput.disabled = true; 
-    renderQuote();
+    //renderQuote();
 };
 
 quoteInput.addEventListener("input", () => {
