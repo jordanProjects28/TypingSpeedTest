@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test</title>
+    <link rel="icon" type="image/svg" href="keyboard.svg">
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="stats">
+            <p>Χρόνος : <span id="timer">600s</span></p>
+            <p>Λάθη : <span id="mistakes">0</span></p> 
+        </div>
+
+        <div id="quote"></div>
+
+        <textarea rows="3" id="quote-input" placeholder="Γράψε εδώ μόλις ξεκινήσεις το τέστ.." autocomplete="off" spellcheck="false"></textarea>
+
+        <button id="start" onclick="startTest()">ΞΕΚΙΝΑ</button>
+        <button id="stop" onclick="displayResult()">ΤΕΛΟΣ</button> 
+
+        <div class="result">
+            <h3>Αποτελέσματα</h3>
+            <div class="wrapper">
+                <p>Χαρακτήρες : <span id="characters"></span></p>
+                <p>Χρόνος : <span id="time-taken"></span></p>
+                <p>Λάθη : <span id="mistake"></span></p>
+                <p>Ακρίβεια : <span id="accuracy"></span></p>
+                <p>Ταχύτητα : <span id="speed"></span></p>
+                <button id="restart" onclick="startTest()">ΕΠΑΝΑΛΗΨΗ</button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <hr>
+        <p>
+            &copy; Iordanis Sapanidis <span id="year"></span>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
