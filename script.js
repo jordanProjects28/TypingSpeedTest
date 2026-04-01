@@ -1,4 +1,5 @@
 let quoteSection = document.getElementById("quote");
+let quotesScore = document.getElementById("quotes-score");
 let quoteInput =  document.getElementById("quote-input");
 
 const startTestBtn = document.getElementById("start");
@@ -10,8 +11,8 @@ quoteInput.addEventListener("cut", (e) => e.preventDefault());
 quoteInput.addEventListener("paste", (e) => e.preventDefault());
 
 let quote = "";
-let time = 600;
-let timer = "";
+let score = 0;
+let time = 0;
 let mistakes = 0;
 let totalMistakes = 0;
 let charactersWritten = 0;
@@ -59,6 +60,8 @@ const shuffleArray = (quotesArray) => {
 };
 
 const renderQuote = async() => {
+    score++;
+    quotesScore.innerText = `${score}/30`
     shuffleArray(quotesArray);
     quote = quotesArray[0];
 
@@ -74,7 +77,6 @@ window.onload = () => {
     document.getElementById("start").style.display = "block"; 
     document.getElementById("stop").style.display = "none";
     quoteInput.disabled = true; 
-    //renderQuote();
 };
 
 quoteInput.addEventListener("input", () => {
@@ -100,10 +102,6 @@ quoteInput.addEventListener("input", () => {
         document.getElementById("mistakes").innerText = mistakes + totalMistakes;
     };
 
-    /*let check = quoteChars.every(element=>{
-        return element.classList.contains("success");
-    });*/
-
     if(quoteInput.value.length == quote.length){
         quote = "";
         quoteSection.innerHTML = "";
@@ -117,45 +115,23 @@ quoteInput.addEventListener("input", () => {
             renderQuote();
         };
     };
-
-    /*if(check){
-        displayResult();
-    };*/
-    
 });
-
-function updateTimer(){
-    const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    const remaining = Math.max(0, 600 - elapsed);
-    document.getElementById("timer").innerText = remaining + "s";
-
-    if(remaining == 0){
-        displayResult();
-    };       
-};
-
-const timeReduce = () => {
-    time = 600;
-    timer = setInterval(updateTimer, 1000);
-};
 
 const displayResult = () => {
     document.querySelector(".result").style.display = "block";
     document.getElementById("restart").style.display = "block";
-    clearInterval(timer);
     document.getElementById("stop").style.display = "none";
     quoteInput.disabled = true;
-    let timeTaken = 1;
+
     let endTime = Date.now();
-    if(time != 0){
-        timeTaken =(endTime - startTime) / 1000 / 60;
-    };
+    let timeTaken =(endTime - startTime) / 1000 / 60;
+
     if(charactersWritten == 0){
         charactersWritten = quoteInput.value.length;
         totalMistakes = mistakes;
 
         document.getElementById("characters").innerText = charactersWritten;
-        document.getElementById("time-taken").innerText = ((endTime-startTime)/1000).toFixed(2) + "s"
+        document.getElementById("time-taken").innerText = ((endTime - startTime)/1000).toFixed(2) + "s"
         document.getElementById("mistake").innerText = totalMistakes;
         document.getElementById("accuracy").innerText = (((charactersWritten - totalMistakes) / charactersWritten) * 100).toFixed(2) + "%";
         document.getElementById("speed").innerText = (charactersWritten / timeTaken).toFixed(2) + " (CPM)";
@@ -163,8 +139,8 @@ const displayResult = () => {
     }else{
 
         document.getElementById("characters").innerText = (charactersWritten + quoteInput.value.length);
-        document.getElementById("time-taken").innerText = ((endTime-startTime)/1000).toFixed(2) + "s"
-        document.getElementById("mistake").innerText = (totalMistakes+mistakes);
+        document.getElementById("time-taken").innerText = ((endTime - startTime)/1000).toFixed(2) + "s"
+        document.getElementById("mistake").innerText = (totalMistakes + mistakes);
         document.getElementById("accuracy").innerText = ((((charactersWritten + quoteInput.value.length) - (totalMistakes+mistakes)) / (charactersWritten + quoteInput.value.length)) * 100).toFixed(2) + "%";
         document.getElementById("speed").innerText = (charactersWritten / timeTaken).toFixed(2) + " (CPM)";
 
@@ -178,15 +154,15 @@ const startTest = () => {
     totalMistakes = 0;
     charactersWritten = 0;
     quote = "";
-    clearInterval(timer);
+    score = 0;
     
     document.getElementById("start").style.display = "none";
     document.getElementById("restart").style.display = "none";
     document.getElementById("stop").style.display = "block";
     document.getElementById("mistakes").innerText = 0;
-    document.getElementById("timer").innerText = time + "s";
     document.querySelector(".result").style.display = "none";
     quoteSection.innerHTML = "";
+    quotesScore.innerText = `${score}/30`
     quoteInput.value = "";
 
     quotesArray.length = 0;
@@ -194,7 +170,6 @@ const startTest = () => {
 
     quoteInput.disabled = false;
     startTime = Date.now();
-    timeReduce();
     renderQuote();
 }
 
