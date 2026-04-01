@@ -1,6 +1,10 @@
 let quoteSection = document.getElementById("quote");
 let quoteInput =  document.getElementById("quote-input");
 
+const startTestBtn = document.getElementById("start");
+const displayResultBtn = document.getElementById("stop");
+const restartBtn = document.getElementById("restart");
+
 quoteInput.addEventListener("copy", (e) => e.preventDefault());
 quoteInput.addEventListener("cut", (e) => e.preventDefault());
 quoteInput.addEventListener("paste", (e) => e.preventDefault());
@@ -194,4 +198,6 @@ const startTest = () => {
     renderQuote();
 }
 
-
+startTestBtn.addEventListener("click",startTest);
+displayResultBtn.addEventListener("click",displayResult);
+restartBtn.addEventListener("click",startTest);
